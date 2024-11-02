@@ -27,7 +27,7 @@ jobs:
       - name: Move all public to public_html
         run: |
           mkdir -p public_html/tiket-test
-          mv public public_html/tiket-test
+          mv public/* public_html/tiket-test
 
       - name: Move framework
         run: |

@@ -48,9 +48,9 @@ jobs:
 
       - name: Update (production) .env database settings
         run: |
-          sed -i 's|DB_DATABASE=.*|DB_DATABASE=salw7835_tiket-test|' public_html/test-tiket/.env
-          sed -i 's|DB_USERNAME=.*|DB_USERNAME=salw7835_tiket-test|' public_html/test-tiket/.env
-          sed -i 's|DB_PASSWORD=.*|DB_PASSWORD=nMexmVsM6BTC21|' public_html/test-tiket/.env
+          sed -i 's|DB_DATABASE=.*|DB_DATABASE=salw7835_tiket-test|' framework/tiket-test/.env
+          sed -i 's|DB_USERNAME=.*|DB_USERNAME=salw7835_tiket-test|' framework/tiket-test/.env
+          sed -i 's|DB_PASSWORD=.*|DB_PASSWORD=nMexmVsM6BTC21|' framework/tiket-test/.env
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0

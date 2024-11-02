@@ -58,8 +58,8 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: tiket-test.salihara.org
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.CPANEL_USERNAME }}
+          password: ${{ secrets.CPANEL_PASSWORD }}
           port: 2223
           script: |
             cd ~/framework/tiket-test/  # Navigate to your project directory

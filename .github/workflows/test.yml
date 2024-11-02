@@ -46,12 +46,6 @@ jobs:
           sed -i "s|require_once __DIR__.'/../bootstrap/app.php'|require_once __DIR__.'/../../framework/tiket-test/bootstrap/app.php|" public_html/tiket-test/index.php
           echo -e "\$app->bind('path.public', function() {\nreturn __DIR__ ;\n});" >> public_html/tiket-test/index.php
 
-      - name: Update (production) .env database settings
-        run: |
-          sed -i 's|DB_DATABASE=.*|DB_DATABASE=salw7835_tiket-test|' framework/tiket-test/.env
-          sed -i 's|DB_USERNAME=.*|DB_USERNAME=salw7835_tiket-test|' framework/tiket-test/.env
-          sed -i 's|DB_PASSWORD=.*|DB_PASSWORD=nMexmVsM6BTC21|' framework/tiket-test/.env
-
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:

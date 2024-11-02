@@ -24,13 +24,21 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Upload artifacts
+      - name: Move all public to public_html
+        run: |
+          mv public public_html/test-tiket
+
+      - name: Move framework
+        run: |
+          mkdir -p framework/test-tiket
+          shopt -s extglob
+          mv !(framework|public|node_modules|.git|public_html) framework/test-tiket
+
+      - name: Move manifest.json
         run: |
           mkdir -p public/build
-          cp -R dist/* public/build
-          mv public/build/manifest.json public/build
-          mv public public_html/test-tiket
-          mv . public_html/test-tiket/framework/test-tiket
+          mv public/build framework/test-tiket
+          mv public_html/test-tiket/build/manifest.json framework/test-tiket/public/build
 
       - name: Edit index.php
         run: |
@@ -40,9 +48,9 @@ jobs:
 
       - name: Update (production) .env database settings
         run: |
-          sed -i 's|DB_DATABASE=.*|DB_DATABASE=salw7835_tiket-test| public_html/test-tiket/.env
-          sed -i 's|DB_USERNAME=.*|DB_USERNAME=salw7835_tiket-test| public_html/test-tiket/.env
-          sed -i 's|DB_PASSWORD=.*|DB_PASSWORD=nMexmVsM6BTC21| public_html/test-tiket/.env
+          sed -i 's|DB_DATABASE=.*|DB_DATABASE=salw7835_tiket-test|' public_html/test-tiket/.env
+          sed -i 's|DB_USERNAME=.*|DB_USERNAME=salw7835_tiket-test|' public_html/test-tiket/.env
+          sed -i 's|DB_PASSWORD=.*|DB_PASSWORD=nMexmVsM6BTC21|' public_html/test-tiket/.env
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@4.1.0

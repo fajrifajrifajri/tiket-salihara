@@ -26,25 +26,26 @@ jobs:
 
       - name: Move all public to public_html
         run: |
-          mv public public_html/test-tiket
+          mkdir -p public_html/tiket-test
+          mv public public_html/tiket-test
 
       - name: Move framework
         run: |
-          mkdir -p framework/test-tiket
+          mkdir -p framework/tiket-test
           shopt -s extglob
-          mv !(framework|public|node_modules|.git|public_html) framework/test-tiket
+          mv !(framework|public|node_modules|.git|public_html) framework/tiket-test
 
       - name: Move manifest.json
         run: |
           mkdir -p public/build
-          mv public/build framework/test-tiket
-          mv public_html/test-tiket/build/manifest.json framework/test-tiket/public/build
+          mv public/build framework/tiket-test
+          mv public_html/tiket-test/build/manifest.json framework/tiket-test/public/build
 
       - name: Edit index.php
         run: |
-          sed -i "s|require __DIR__.'/../vendor/autoload.php'|require __DIR__.'/../../framework/tiket-test/vendor/autoload.php|" public_html/test-tiket/index.php
-          sed -i "s|require_once __DIR__.'/../bootstrap/app.php'|require_once __DIR__.'/../../framework/tiket-test/bootstrap/app.php|" public_html/test-tiket/index.php
-          echo -e "\$app->bind('path.public', function() {\nreturn __DIR__ ;\n});" >> public_html/test-tiket/index.php
+          sed -i "s|require __DIR__.'/../vendor/autoload.php'|require __DIR__.'/../../framework/tiket-test/vendor/autoload.php|" public_html/tiket-test/index.php
+          sed -i "s|require_once __DIR__.'/../bootstrap/app.php'|require_once __DIR__.'/../../framework/tiket-test/bootstrap/app.php|" public_html/tiket-test/index.php
+          echo -e "\$app->bind('path.public', function() {\nreturn __DIR__ ;\n});" >> public_html/tiket-test/index.php
 
       - name: Update (production) .env database settings
         run: |

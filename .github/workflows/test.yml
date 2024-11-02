@@ -52,4 +52,4 @@ jobs:
           server: tiket-test.salihara.org
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/tiket-test
+          server-dir: /public_html/tiket-test/

@@ -42,8 +42,8 @@ jobs:
 
       - name: Edit index.php
         run: |
-          sed -i "s|require __DIR__.'/../vendor/autoload.php'|require __DIR__.'/../../framework/tiket-test/vendor/autoload.php|" public_html/tiket-test/index.php
-          sed -i "s|require_once __DIR__.'/../bootstrap/app.php'|require_once __DIR__.'/../../framework/tiket-test/bootstrap/app.php|" public_html/tiket-test/index.php
+          sed -i "s|require __DIR__.'/../vendor/autoload.php'|require __DIR__.'/../../framework/tiket-test/vendor/autoload.php'|" public_html/tiket-test/index.php
+          sed -i "s|require_once __DIR__.'/../bootstrap/app.php'|require_once __DIR__.'/../../framework/tiket-test/bootstrap/app.php'|" public_html/tiket-test/index.php
           echo -e "\$app->bind('path.public', function() {\nreturn __DIR__ ;\n});" >> public_html/tiket-test/index.php
 
       - name: Deploy via FTP
@@ -53,3 +53,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
+          exclude: |
+            **/.git*
+            **/.git*/**

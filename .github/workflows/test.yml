@@ -37,8 +37,7 @@ jobs:
 
       - name: Move manifest.json
         run: |
-          mkdir -p public/build
-          mv public/build framework/tiket-test
+          mkdir -p framework/tiket-test/public/build
           mv public_html/tiket-test/build/manifest.json framework/tiket-test/public/build
 
       - name: Edit index.php

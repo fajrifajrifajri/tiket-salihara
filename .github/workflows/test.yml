@@ -18,8 +18,8 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Setup Vite
-        run: npm install -D vite
+      - name: Install Packages
+        run: npm install
 
       - name: Build the project
         run: npm run build

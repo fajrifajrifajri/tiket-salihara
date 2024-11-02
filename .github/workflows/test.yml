@@ -1,4 +1,4 @@
-name: Deploy to Shared Hosting (test-tiket.salihara.org)
+name: Deploy to Shared Hosting ( test-tiket.salihara.org )
 
 on:
   push:

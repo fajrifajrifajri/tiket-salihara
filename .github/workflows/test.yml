@@ -1,0 +1,53 @@
+name: Deploy to Shared Hosting (test-tiket.salihara.org)
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Upload artifacts
+        run: |
+          mkdir -p public/build
+          cp -R dist/* public/build
+          mv public/build/manifest.json public/build
+          mv public public_html/test-tiket
+          mv . public_html/test-tiket/framework/test-tiket
+
+      - name: Edit index.php
+        run: |
+          sed -i "s|require __DIR__.'/../vendor/autoload.php'|require __DIR__.'/../../framework/tiket-test/vendor/autoload.php|" public_html/test-tiket/index.php
+          sed -i "s|require_once __DIR__.'/../bootstrap/app.php'|require_once __DIR__.'/../../framework/tiket-test/bootstrap/app.php|" public_html/test-tiket/index.php
+          echo -e "\$app->bind('path.public', function() {\nreturn __DIR__ ;\n});" >> public_html/test-tiket/index.php
+
+      - name: Update (production) .env database settings
+        run: |
+          sed -i 's|DB_DATABASE=.*|DB_DATABASE=salw7835_tiket-test| public_html/test-tiket/.env
+          sed -i 's|DB_USERNAME=.*|DB_USERNAME=salw7835_tiket-test| public_html/test-tiket/.env
+          sed -i 's|DB_PASSWORD=.*|DB_PASSWORD=nMexmVsM6BTC21| public_html/test-tiket/.env
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: tiket-test.salihara.org
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/tiket-test

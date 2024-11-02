@@ -19,7 +19,7 @@ jobs:
           node-version: "16"
 
       - name: Setup Vite
-        run: npm install  -D vite
+        run: npm install -D vite
 
       - name: Build the project
         run: npm run build
@@ -53,14 +53,3 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /
-
-      - name: Install NPM packages via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: tiket-test.salihara.org
-          username: ${{ secrets.CPANEL_USERNAME }}
-          password: ${{ secrets.CPANEL_PASSWORD }}
-          port: 2223
-          script: |
-            cd ~/framework/tiket-test/  # Navigate to your project directory
-            npm install  # Install npm packages

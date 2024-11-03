@@ -18,6 +18,15 @@ jobs:
         with:
           node-version: "16"
 
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer:v2
+
+      - name: Install PHP dependencies
+        run: composer install --no-dev --optimize-autoloader
+
       - name: Setup Vite
         run: npm install -D vite
 
@@ -52,4 +61,4 @@ jobs:
           server: tiket-test.salihara.org
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /
+          server-dir: /public_html/tiket-test

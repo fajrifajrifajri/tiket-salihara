@@ -63,4 +63,4 @@ jobs:
           port: 2223
           script: |
             cd framework/tiket-test/  # Navigate to your project directory
-            npm composer install --no-dev --optimize-autoloader  # Install npm packages
+            composer install --no-dev --optimize-autoloader  # Install npm packages

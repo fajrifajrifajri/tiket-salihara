@@ -1,4 +1,4 @@
-name: Deploy to Shared Hosting ( test-tiket.salihara.org )
+name: Deploy to Shared Hosting ( tiket-test.salihara.org )
 
 on:
   push:
@@ -17,6 +17,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16"
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer:v2
 
       - name: Setup Vite
         run: npm install -D vite

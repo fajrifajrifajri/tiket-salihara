@@ -18,15 +18,6 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Setup PHP with composer v2
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.3"
-          tools: composer:v2
-
-      - name: Install PHP dependencies
-        run: composer install --no-dev --optimize-autoloader
-
       - name: Setup Vite
         run: npm install -D vite
 
@@ -61,4 +52,15 @@ jobs:
           server: tiket-test.salihara.org
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/tiket-test/
+          server-dir: /
+
+      - name: Install PHP dependencies (vendor) via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: tiket-test.salihara.org
+          username: ${{ secrets.CPANEL_USERNAME }}
+          password: ${{ secrets.CPANEL_PASSWORD }}
+          port: 2223
+          script: |
+            cd framework/tiket-test/  # Navigate to your project directory
+            npm composer install --no-dev --optimize-autoloader  # Install npm packages

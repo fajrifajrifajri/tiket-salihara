@@ -6,13 +6,14 @@ import PopupTiket from "../pages/acara/popupTiket";
 
 interface NavBeliProps {
     className?: string;
+    type: "Tiket" | "RSVP"; // Define the type prop to determine behavior
 }
 
 const navBeliStyle = cva(
     "fixed flex bottom-0 w-full py-8 px-20 text-sm font-semibold"
 );
 
-const NavBeli: FC<NavBeliProps> = ({ className }) => {
+const NavBeli: FC<NavBeliProps> = ({ className, type }) => {
     return (
         <div className={navBeliStyle({ className })}>
             <div className="flex gap-x-4 ml-auto">
@@ -21,7 +22,7 @@ const NavBeli: FC<NavBeliProps> = ({ className }) => {
                         <Button className="">BELI TIKET</Button>
                     </DialogTrigger>
                     <DialogContent>
-                        <PopupTiket />
+                        <PopupTiket type={type} />
                     </DialogContent>
                 </Dialog>
 

@@ -3,7 +3,7 @@ name: Deploy to Shared Hosting ( tiket-test.salihara.org )
 on:
   push:
     branches:
-      - test
+      - master
 
 jobs:
   build-and-deploy:

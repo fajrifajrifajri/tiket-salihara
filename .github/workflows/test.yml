@@ -1,0 +1,55 @@
+name: Deploy to Shared Hosting ( tiket-test.salihara.org )
+
+on:
+  push:
+    branches:
+      - test
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Setup Vite
+        run: npm install -D vite
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Move all public to public_html
+        run: |
+          mkdir -p public_html/tiket-test
+          mv public/* public_html/tiket-test
+
+      - name: Move framework
+        run: |
+          mkdir -p framework/tiket-test
+          shopt -s extglob
+          mv !(framework|public|node_modules|.git|public_html) framework/tiket-test
+
+      - name: Move manifest.json
+        run: |
+          mkdir -p framework/tiket-test/public/build
+          mv public_html/tiket-test/build/manifest.json framework/tiket-test/public/build
+
+      - name: Edit index.php
+        run: |
+          sed -i "s|require __DIR__.'/../vendor/autoload.php'|require __DIR__.'/../../framework/tiket-test/vendor/autoload.php'|" public_html/tiket-test/index.php
+          sed -i "s|require_once __DIR__.'/../bootstrap/app.php'|require_once __DIR__.'/../../framework/tiket-test/bootstrap/app.php'|" public_html/tiket-test/index.php
+          echo -e "\$app->bind('path.public', function() {\nreturn __DIR__ ;\n});" >> public_html/tiket-test/index.php
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: tiket-test.salihara.org
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/tiket-test/

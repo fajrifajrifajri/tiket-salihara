@@ -4,7 +4,7 @@ import React from "react";
 
 const Donasi: React.FC = () => {
     return (
-        <div className="my-12 mx-20">
+        <div className="my-12 md:mx-20">
             <h3 className="font-bold text-lg mb-2">Donasi Anda</h3>
             <div className="inline-flex gap-2 mb-4 mr-2">
                 {[10000, 25000, 50000, 100000].map((amount) => (

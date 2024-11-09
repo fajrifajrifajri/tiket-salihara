@@ -13,7 +13,7 @@ export default function Depan({ children, className }: DepanProps) {
                 <Navbar />
             </div>
 
-            <div className={`pt-48 ${className}`}>{children}</div>
+            <div className={`md:pt-48 pt-32 ${className}`}>{children}</div>
 
             <div>
                 <Footer />

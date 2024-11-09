@@ -9,14 +9,14 @@ export default function Landing() {
         <>
             <Navbar />
             <div className="pt-48 bg-gray-1">
-                <div className="flex flex-col gap-y-2 mb-6 ml-[80px] px-20">
+                <div className="flex flex-col gap-y-2 mb-6 ml-[80px] md:px-20">
                     <div>Teater</div>
                     <h1 className="text-4xl font-semibold">Kotak Teka Teki</h1>
                     <span className="font-bold">Jumat, 25 November 2022</span>
                 </div>
                 <HeroImage src="/img/kotak-teka-teki.jpg" alt="Event" />
 
-                <section className="px-20 mx-[80px] pt-8 pb-32">
+                <section className="md:px-40 mx-2 py-10 md:ml-[80px]">
                     <div className="mb-6">
                         <p>
                             <b>Penampil:</b> Kelas Akting Salihara Tingkat 1

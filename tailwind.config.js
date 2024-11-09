@@ -26,10 +26,13 @@ export default {
     			'dark-1': '#444444',
     			'dark-2': '#343A40',
     			'gray-1': '#F5F5F5',
-				'gray-2': '#C4C4C4',
-				'gray-3': '#9E9E9E',
-				'purple-1': '#8917FC',
-				'blue-1': '#2F6EA6',
+    			'gray-2': '#C4C4C4',
+    			'gray-3': '#9E9E9E',
+				'gray-4': '#D9D9D9',
+    			'purple-1': '#8917FC',
+    			'blue-1': '#2F6EA6',
+				'red-1': '#FF0000',
+				'mine-1': '#3f3f46',
     			background: 'hsl(var(--background))',
     			foreground: 'hsl(var(--foreground))',
     			card: {
@@ -69,6 +72,16 @@ export default {
     				'3': 'hsl(var(--chart-3))',
     				'4': 'hsl(var(--chart-4))',
     				'5': 'hsl(var(--chart-5))'
+    			},
+    			sidebar: {
+    				DEFAULT: 'hsl(var(--sidebar-background))',
+    				foreground: 'hsl(var(--sidebar-foreground))',
+    				primary: 'hsl(var(--sidebar-primary))',
+    				'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+    				accent: 'hsl(var(--sidebar-accent))',
+    				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+    				border: 'hsl(var(--sidebar-border))',
+    				ring: 'hsl(var(--sidebar-ring))'
     			}
     		},
     		keyframes: {

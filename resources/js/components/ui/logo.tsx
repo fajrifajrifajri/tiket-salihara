@@ -1,29 +1,35 @@
 import React from "react";
 
 interface LogoProps {
-    src: string;
-    alt: string;
     isScrolled: boolean;
     className?: string;
+    showDescription?: boolean;
 }
 
-const Logo: React.FC<LogoProps> = ({ src, alt, isScrolled, className }) => {
+const Logo: React.FC<LogoProps> = ({
+    isScrolled,
+    className,
+    showDescription = true,
+}) => {
     return (
         <div>
             <img
-                src={src}
-                alt={alt}
-                width={isScrolled ? 170 : 180}
-                height={isScrolled ? 89 : 99}
+                src="/img/logo-tiket.png"
+                alt="Logo"
+                width={isScrolled ? 170 : 170}
+                height={isScrolled ? 89 : 89}
                 className={className}
             />
-            <span
-                className={`block ${
-                    isScrolled ? "ml-[75px]" : "ml-[80px]"
-                } transition-all duration-300 ease-in-out leading-5 font-medium text-dark-1`}
-            >
-                Tiket dan pendaftaran untuk acara <br /> di Komunitas Salihara
-            </span>
+            {showDescription && (
+                <span
+                    className={`block ${
+                        isScrolled ? "ml-[80px]" : "ml-[80px]"
+                    } transition-all duration-300 ease-in-out leading-5 font-medium text-dark-1`}
+                >
+                    Tiket dan pendaftaran untuk acara <br /> di Komunitas
+                    Salihara
+                </span>
+            )}
         </div>
     );
 };

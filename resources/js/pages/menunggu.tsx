@@ -4,7 +4,7 @@ import Depan from "@/layouts/depan";
 
 export default function Component() {
     return (
-        <Depan className="px-20 py-10 ml-[80px]">
+        <Depan className="md:px-40 mx-2 py-10 md:ml-[80px]">
             <div className="min-h-[620px] flex flex-col items-center">
                 <div className="w-full max-w-lg p-8 space-y-8">
                     <div className="flex flex-col items-center space-y-4">

@@ -19,9 +19,14 @@ const buttonVariants = cva(
                     "bg-secondary text-secondary-foreground hover:bg-secondary/80",
                 ghost: "hover:bg-accent hover:text-accent-foreground",
                 link: "text-primary underline-offset-4 hover:underline",
+                "dasbor-black": "bg-black text-white hover:bg-black/80",
+                "dasbor-gray": "bg-gray-2 text-black hover:bg-gray-2/60",
+                "dasbor-blue-rounded":
+                    "bg-blue-500 text-white hover:bg-blue-500/90 rounded-full",
             },
             size: {
                 default: "h-9 px-4 py-2",
+                xs: "h-6 px-2 text-xs",
                 sm: "h-8 px-3 text-xs",
                 lg: "h-10 px-8",
                 icon: "h-9 w-9",

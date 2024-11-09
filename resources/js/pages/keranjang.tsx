@@ -6,7 +6,7 @@ import { Link } from "@inertiajs/react";
 
 export default function Landing() {
     return (
-        <Depan className="px-20 py-10 ml-[80px]">
+        <Depan className="md:px-40 mx-2 py-10 md:ml-[80px]">
             <h1 className="text-2xl font-medium mb-6 text-dark-1">
                 RINGKASAN PEMBELIAN
             </h1>

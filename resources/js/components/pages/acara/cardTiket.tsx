@@ -5,9 +5,15 @@ interface CardTiketProps {
     nama: string;
     deskripsi: string;
     catatan: string | undefined;
+    tersedia: number;
 }
 
-const CardTiket: React.FC<CardTiketProps> = ({ nama, deskripsi, catatan }) => {
+const CardTiket: React.FC<CardTiketProps> = ({
+    nama,
+    deskripsi,
+    catatan,
+    tersedia,
+}) => {
     const [quantity, setQuantity] = useState(0);
 
     const handleQuantityChange = (newQuantity: number) => {
@@ -22,10 +28,19 @@ const CardTiket: React.FC<CardTiketProps> = ({ nama, deskripsi, catatan }) => {
                 <small className="text-xs text-red-600">{catatan}</small>
             </div>
             <div>
-                <QuantityInput
-                    quantity={quantity}
-                    onChange={handleQuantityChange}
-                />
+                {tersedia > 0 ? (
+                    <>
+                        <QuantityInput
+                            quantity={quantity}
+                            onChange={handleQuantityChange}
+                        />
+                        <div className="mt-2 text-center text-xs">
+                            Tersedia:{tersedia}
+                        </div>
+                    </>
+                ) : (
+                    <div className="text-red-1">Habis</div>
+                )}
             </div>
         </div>
     );

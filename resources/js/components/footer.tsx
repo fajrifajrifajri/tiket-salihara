@@ -6,7 +6,7 @@ interface FooterProps {
 }
 
 const footerStyle = cva(
-    "flex justify-between py-12 px-20 bg-black text-white text-center text-sm font-semibold"
+    "flex justify-between py-12 px-2 sm:px-20 bg-black text-white text-center text-sm font-semibold"
 );
 const socialMediaLinks = [
     { href: "#", src: "/img/facebook-icon.png", alt: "Facebook" },
@@ -19,7 +19,7 @@ const socialMediaLinks = [
 const Footer: FC<FooterProps> = ({ className }) => {
     return (
         <footer className={footerStyle({ className })}>
-            <div className="flex gap-x-8">
+            <div className="flex flex-col md:flex-row gap-x-8 gap-y-2 text-xs md:text-sm">
                 <p>Jl. Salihara 16, Pasar Minggu, Jakarta 12520</p>
                 <p>Syarat dan Ketentuan</p>
             </div>

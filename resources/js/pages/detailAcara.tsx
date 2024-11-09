@@ -15,14 +15,14 @@ export default function Landing() {
         <>
             <Navbar />
             <div className="pt-48 bg-gray-1">
-                <div className="flex flex-col gap-y-2 mb-6 ml-[80px] px-20">
+                <div className="flex flex-col gap-y-2 mb-6 ml-[20px] md:ml-[80px] md:px-20">
                     <div>Pameran</div>
                     <h1 className="text-4xl font-semibold">Common Sanctum</h1>
                     <span className="font-bold">Jumat, 07 Maret 2024</span>
                 </div>
                 <HeroImage src="/img/masa-kritis.png" alt="Event" />
 
-                <section className="px-20 mx-[80px] pt-8 pb-32">
+                <section className="md:px-20 ml-[20px] md:mx-[80px] pt-8 pb-32">
                     <div>
                         <p>
                             <b>Seniman:</b> Bunga Yuridespita

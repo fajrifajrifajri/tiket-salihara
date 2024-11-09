@@ -15,12 +15,12 @@ const categories = [
 
 export default function Landing() {
     return (
-        <Depan className="pt-8">
+        <Depan className="">
             <Slider />
 
-            <section className="pt-32 text-center">
+            <section className="pt-32 px-8 text-center">
                 <h2 className="text-4xl font-bold mb-8">TERKINI</h2>
-                <div className="flex items-center justify-center mt-4 mb-20">
+                <div className="md:flex items-center justify-center mt-4 mb-20">
                     <div className="text-left text-xs">
                         <span className="block mb-2 font-bold">KATEGORI</span>
                         <div className="flex gap-x-8">

@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import HeadingDasbor from "@/components/dasbor/headingDasbor";
 import { KategoriList } from "@/components/dasbor/kategoriList";
 import { Button } from "@/components/ui/button";
 import Dasbor from "@/layouts/dasbor";
+import { router, usePage } from "@inertiajs/react";
+import { useForm } from "@/hooks/useForm";
+import { KategoriListProps } from "@/types/kategori";
+import { LabelAndInput } from "@/components/dasbor/labelAndInput";
 
 export default function Component() {
     const [isFormVisible, setIsFormVisible] = useState(false);
+    const { kategori } = usePage().props as unknown as KategoriListProps;
+
+    const { values, handleChange, handleSubmit } = useForm({
+        initialValues: {
+            nama_kategori: "",
+        },
+        onSubmit: (values) => {
+            router.post("/dasbor/kategori", values);
+        },
+    });
 
     const toggleFormVisibility = () => {
         setIsFormVisible(!isFormVisible);
@@ -17,7 +31,6 @@ export default function Component() {
             <main>
                 <HeadingDasbor title="KATEGORI" />
 
-                {/* Toggle Button */}
                 <Button
                     variant="dasbor-black"
                     className="mb-4"
@@ -26,7 +39,6 @@ export default function Component() {
                     {isFormVisible ? "− KATEGORI" : "+ KATEGORI"}
                 </Button>
 
-                {/* Form with Framer Motion Animation */}
                 {isFormVisible && (
                     <motion.div
                         initial={{ opacity: 0, height: 0 }}
@@ -34,25 +46,27 @@ export default function Component() {
                         exit={{ opacity: 0, height: 0 }}
                         className="overflow-hidden mb-6"
                     >
-                        <form className="space-y-4 p-4 border border-gray-300 rounded">
-                            <label className="block text-sm font-medium text-gray-700">
-                                Nama Kategori
-                                <input
-                                    type="text"
-                                    name="nama_kategori"
-                                    className="mt-1 p-2 block w-full border border-gray-300 rounded"
-                                    placeholder="Masukkan nama kategori"
-                                />
-                            </label>
-                            <Button variant="dasbor-black" type="submit">
-                                Submit
+                        <form
+                            onSubmit={handleSubmit}
+                            className="space-y-4 p-4 border border-black rounded-lg"
+                        >
+                            <LabelAndInput
+                                id="nama_kategori"
+                                label="Nama Kategori"
+                                type="text"
+                                placeholder="Nama Kategori"
+                                value={values.nama_kategori}
+                                onChange={handleChange}
+                                className="flex"
+                            />
+                            <Button variant="link" size="link">
+                                Tambah +
                             </Button>
                         </form>
                     </motion.div>
                 )}
 
-                {/* Kategori List */}
-                <KategoriList />
+                <KategoriList kategori={kategori} />
             </main>
         </Dasbor>
     );

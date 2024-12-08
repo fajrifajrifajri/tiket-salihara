@@ -1,82 +1,79 @@
 import { Button } from "@/components/ui/button";
 import Dasbor from "@/layouts/dasbor";
-
-import { DataTable } from "../../../components/dasbor/dataTable";
 import { useEffect, useState } from "react";
 import HeadingDasbor from "@/components/dasbor/headingDasbor";
 import { Input } from "@/components/ui/input";
-import { columns, Order } from "./columns";
-import { Link } from "@inertiajs/react";
+import { columns, Transaksi } from "./columns";
+import { Link, router } from "@inertiajs/react";
+import { SearchIcon } from "lucide-react";
+import { DataTable } from "@/components/dasbor/dataTable";
 
-async function getData(): Promise<Order[]> {
-    return [
-        {
-            no_tiket: "TK1",
-            nama: "John Doe",
-            tanggal: "07 Maret 2024",
-            acara: "Acara",
-            tiket: "Tiket Early Bird",
-            jumlah: 2,
-            total: 120000,
-            status: "completed",
-            e_tiket: "123456",
-        },
-        {
-            no_tiket: "TK1",
-            nama: "John Doe",
-            tanggal: "07 Maret 2024",
-            acara: "Acara",
-            tiket: "Tiket Early Bird",
-            jumlah: 2,
-            total: 120000,
-            status: "completed",
-            e_tiket: "123456",
-        },
-        {
-            no_tiket: "TK1",
-            nama: "John Doe",
-            tanggal: "07 Maret 2024",
-            acara: "Acara",
-            tiket: "Tiket Early Bird",
-            jumlah: 2,
-            total: 120000,
-            status: "completed",
-            e_tiket: "123456",
-        },
-    ];
+interface Props {
+    initialTransactions: {
+        data: Transaksi[];
+        meta: {
+            current_page: number;
+            last_page: number;
+            total: number;
+        };
+    };
 }
 
-export default function Component() {
-    const [data, setData] = useState<Order[]>([]);
+export default function Component({ initialTransactions }: Props) {
+    const [searchQuery, setSearchQuery] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await getData();
-            setData(result);
-        };
-        fetchData();
-    }, []);
+    const handleSearch = () => {
+        setIsLoading(true);
+        router.get(
+            "/dasbor/order",
+            { search: searchQuery },
+            {
+                preserveState: true,
+                preserveScroll: true,
+                onFinish: () => setIsLoading(false),
+            }
+        );
+    };
 
+    console.log(initialTransactions);
     return (
         <Dasbor>
-            <main>
+            <main className="p-6 space-y-6">
                 <HeadingDasbor title="LIST ORDER BERBAYAR" />
 
-                <div className="mb-20">
-                    <Link href="/dasbor/order/baru">
+                <div className="flex justify-between items-center">
+                    <Link href="/dasbor/order/buat">
                         <Button variant="dasbor-gray">+ Order Baru</Button>
                     </Link>
+
+                    <div className="flex gap-2">
+                        <Input
+                            className="w-64"
+                            type="text"
+                            placeholder="Cari nomor tiket atau nama"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <Button
+                            variant="dasbor-black"
+                            onClick={handleSearch}
+                            className="flex items-center gap-2"
+                            disabled={isLoading}
+                        >
+                            <SearchIcon className="w-4 h-4" />
+                            {isLoading ? "Mencari..." : "Cari"}
+                        </Button>
+                    </div>
                 </div>
 
-                <div>
-                    <Input
-                        className="inline-block w-48 mr-8"
-                        type="text"
-                        placeholder="Cari"
+                <div className="rounded-md border">
+                    <DataTable
+                        columns={columns}
+                        data={initialTransactions.data}
+                        isLoading={isLoading}
                     />
-                    <Button variant="dasbor-black">Cari</Button>
                 </div>
-                <DataTable columns={columns} data={data} />
             </main>
         </Dasbor>
     );

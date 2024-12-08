@@ -11,7 +11,7 @@ const Cart: React.FC = () => {
         <div className="relative">
             <div className={qtyStyle()}>
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-semibold rounded-full h-5 w-5 flex items-center justify-center">
-                    5
+                    0
                 </span>
             </div>
             <Link href="/keranjang">

@@ -3,11 +3,13 @@ import React from "react";
 interface QuantityInputProps {
     quantity: number;
     onChange: (value: number) => void;
+    max: number;
 }
 
 const QuantityInput: React.FC<QuantityInputProps> = ({
     quantity,
     onChange,
+    max,
 }) => {
     return (
         <div className="grid grid-cols-3 px-6 w-[109px] border border-gray-3 text-black">
@@ -21,6 +23,7 @@ const QuantityInput: React.FC<QuantityInputProps> = ({
             <span className="col-span-1 flex justify-center">{quantity}</span>
             <button
                 onClick={() => onChange(quantity + 1)}
+                disabled={quantity >= max}
                 className="col-span-1"
             >
                 +

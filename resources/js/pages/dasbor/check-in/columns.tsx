@@ -12,7 +12,7 @@ export type Tiket = {
 
 export const columns: ColumnDef<Tiket>[] = [
     {
-        accessorKey: "no_tiket",
+        accessorKey: "nomor_tiket",
         header: "No. Tiket",
     },
     {
@@ -20,15 +20,15 @@ export const columns: ColumnDef<Tiket>[] = [
         header: "Nama",
     },
     {
-        accessorKey: "acara",
+        accessorKey: "nama_acara",
         header: "Acara",
     },
     {
-        accessorKey: "tiket",
+        accessorKey: "tipe_tiket",
         header: "Tiket",
     },
     {
-        accessorKey: "check_in",
+        accessorKey: "status",
         header: "Check In",
     },
 ];

@@ -1,9 +1,11 @@
 import {
-    Tag,
-    TicketPercent,
-    TicketSlash,
-    FileText,
     ChevronRight,
+    Star,
+    DollarSign,
+    Calendar,
+    ChartBar,
+    Home,
+    LogOut,
 } from "lucide-react";
 import {
     Sidebar,
@@ -52,7 +54,7 @@ const SidebarGroupStructure: React.FC<SidebarGroupProps> = ({
         <SidebarGroup>
             <Collapsible defaultOpen className="group/collapsible">
                 <SidebarGroupLabel asChild>
-                    <CollapsibleTrigger className="peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-purple-1 disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-purple-1 group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-purple-1 h-8">
+                    <CollapsibleTrigger className="peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8">
                         <Icon />
                         {label}
                         <ChevronRight className="lucide lucide-chevron-right ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -96,30 +98,47 @@ export const AppSidebar = () => (
                 <Logo isScrolled={false} showDescription={false} />
             </SidebarHeader>
             <SidebarGroup>
-                <SidebarGroupLabel className="cursor-default text-base text-sidebar-foreground/70">
-                    DASHBOARD
+                <SidebarGroupLabel className="px-0 cursor-default text-base text-sidebar-foreground/70">
+                    <Link
+                        href="/dasbor"
+                        className="flex w-full items-center gap-2 p-2 overflow-hidden rounded-md text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8"
+                    >
+                        <Home />
+                        <span>Dasbor</span>
+                    </Link>
                 </SidebarGroupLabel>
             </SidebarGroup>
             <SidebarGroupStructure
                 label="Utama"
                 items={utamaItems}
-                icon={Tag}
+                icon={Star}
             />
             <SidebarGroupStructure
                 label="Berbayar"
                 items={berbayarItems}
-                icon={TicketPercent}
+                icon={DollarSign}
             />
             <SidebarGroupStructure
                 label="RSVP"
                 items={rsvpItems}
-                icon={TicketSlash}
+                icon={Calendar}
             />
             <SidebarGroupStructure
                 label="Laporan"
                 items={laporanItems}
-                icon={FileText}
+                icon={ChartBar}
             />
+            <SidebarGroup>
+                <SidebarGroupLabel className="px-0 cursor-default text-base text-sidebar-foreground/70">
+                    <Link
+                        href="/keluar"
+                        className="flex w-full items-center gap-2 p-2 overflow-hidden rounded-md text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-8"
+                    >
+                        <LogOut />
+                        <span>Keluar</span>
+                    </Link>
+                </SidebarGroupLabel>
+            </SidebarGroup>
         </SidebarContent>
     </Sidebar>
 );

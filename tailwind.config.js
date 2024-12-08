@@ -22,6 +22,10 @@ export default {
     			md: 'calc(var(--radius) - 2px)',
     			sm: 'calc(var(--radius) - 4px)'
     		},
+			boxShadow: {
+				'dasbor-black': '3px 3px 0px 0px rgba(74, 74, 74, 1)',
+				'dasbor-white': '3px 3px 0px 0px rgba(210, 210, 210, 1)',
+			},
     		colors: {
     			'dark-1': '#444444',
     			'dark-2': '#343A40',

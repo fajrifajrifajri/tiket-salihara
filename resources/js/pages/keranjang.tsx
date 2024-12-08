@@ -4,7 +4,11 @@ import { Button } from "@/components/ui/button";
 import Depan from "@/layouts/depan";
 import { Link } from "@inertiajs/react";
 
-export default function Landing() {
+export default function Keranjang() {
+    const ringkasan = JSON.parse(localStorage.getItem("ringkasan") || "[]");
+
+    console.log(ringkasan);
+
     return (
         <Depan className="md:px-40 mx-2 py-10 md:ml-[80px]">
             <h1 className="text-2xl font-medium mb-6 text-dark-1">

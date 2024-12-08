@@ -1,90 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CardTiket from "./cardTiket";
 import ListTiket from "./listTiket";
 import { Button } from "@/components/ui/button";
-import { Link } from "@inertiajs/react";
-
-const acara = "Common Sanctum";
-
-const tiketData = [
-    {
-        nama: "Tiket Konser",
-        deskripsi: "Hari Senin dan libur nasional pameran ditutup.",
-        tersedia: 12,
-    },
-    {
-        nama: "Tiket Teater",
-        deskripsi: "Hari Senin dan libur nasional pameran ditutup.",
-        tersedia: 48,
-    },
-    {
-        nama: "Tiket Pameran",
-        deskripsi: "Hari Senin dan libur nasional pameran ditutup.",
-        catatan: "Tiket sudah tidak tersedia. Silakan hubungi Admin.",
-        tersedia: 0,
-    },
-];
-const tiketTotal = [
-    {
-        nama: "Tiket Early Bird",
-        qty: 2,
-        harga: 100000,
-    },
-    {
-        nama: "Tiket Umum",
-        qty: 1,
-        harga: 50000,
-    },
-];
-const rsvpData = [
-    {
-        nama: "RSVP Kotak Teka-Teki",
-        deskripsi: "",
-        catatan: "",
-        tersedia: 4,
-    },
-];
-const rsvpTotal = [
-    {
-        nama: "RSVP Kotak Teka-Teki",
-        qty: 2,
-        harga: 0,
-    },
-];
-
-const totalHargaTiket = tiketTotal.reduce(
-    (acc, tiket) => acc + tiket.qty * tiket.harga,
-    0
-);
+import { router } from "@inertiajs/react";
 
 type PopupTiketProps = {
-    type: "Tiket" | "RSVP"; // Define the type prop to determine behavior
+    acara: any;
+    tiketDetail: any;
 };
 
-const PopupTiket: React.FC<PopupTiketProps> = ({ type }) => {
-    // Determine label and href based on the type
-    const isTiket = type === "Tiket";
-    const label = isTiket ? "Bayar" : "RSVP";
-    const href = isTiket ? "/keranjang" : "/pembayaran-rsvp";
-    const data = isTiket ? tiketData : rsvpData;
-    const total = isTiket ? tiketTotal : rsvpTotal;
-    const totalHarga = isTiket ? totalHargaTiket : 0;
+const PopupTiket: React.FC<PopupTiketProps> = ({ acara, tiketDetail }) => {
+    const [ringkasan, setRingkasan] = useState([]);
+    const [totalHarga, setTotalHarga] = useState(0);
+    const label = acara.tipe_acara === "berbayar" ? "Bayar" : "RSVP";
+
+    const calculateTotalHarga = (ringkasan: any[]) => {
+        return ringkasan.reduce((total, tiket) => total + tiket.harga, 0);
+    };
+
+    const handleSubmit = () => {
+        localStorage.setItem("ringkasan", JSON.stringify(ringkasan));
+        // console.log("Ringkasan stored:", ringkasan);
+
+        router.visit("/keranjang");
+    };
+
+    useEffect(() => {
+        setTotalHarga(calculateTotalHarga(ringkasan));
+    }, [ringkasan]);
 
     return (
         <div className="grid grid-cols-12 gap-x-2">
             <div className="col-span-12 md:col-span-7">
                 <div className="mb-4">
-                    <h2>PAMERAN</h2>
-                    <h1 className="text-2xl font-bold">Common Sanctum</h1>
+                    <h2>{acara.kategori.nama_kategori}</h2>
+                    <h1 className="text-2xl font-bold">{acara.nama_acara}</h1>
                 </div>
                 <div className="flex flex-col gap-y-4">
-                    {data.map((tiket, index) => (
+                    {tiketDetail.map((tiket, index) => (
                         <CardTiket
                             key={index}
-                            nama={tiket.nama}
-                            deskripsi={tiket.deskripsi}
-                            catatan={tiket.catatan}
+                            id={tiket.id}
+                            nama={tiket.nama_tiket}
+                            deskripsi={tiket.info_tiket}
+                            catatan={tiket.info_tiket}
                             tersedia={tiket.tersedia}
+                            harga={tiket.harga}
+                            ringkasan={ringkasan}
+                            setRingkasan={setRingkasan}
+                            setTotalHarga={setTotalHarga}
                         />
                     ))}
                 </div>
@@ -93,10 +57,10 @@ const PopupTiket: React.FC<PopupTiketProps> = ({ type }) => {
             <div className="col-span-12 md:col-span-5 mt-12">
                 <div className="h-auto border border-gray-2 px-8 py-4">
                     <h1 className="mb-6 font-bold">JUMLAH PEMBAYARAN</h1>
-                    {total.map((tiket, index) => (
+                    {ringkasan.map((tiket, index) => (
                         <ListTiket
                             key={index}
-                            acara={acara}
+                            acara={acara.nama_acara}
                             nama={tiket.nama}
                             qty={tiket.qty}
                             harga={tiket.harga}
@@ -109,9 +73,9 @@ const PopupTiket: React.FC<PopupTiketProps> = ({ type }) => {
 
                     <div className="flex justify-between gap-x-8">
                         <Button className="w-full">Kembali</Button>
-                        <Link className="w-full" href={href}>
-                            <Button className="w-full">{label}</Button>
-                        </Link>
+                        <Button className="w-full" onClick={handleSubmit}>
+                            {label}
+                        </Button>
                     </div>
                 </div>
             </div>

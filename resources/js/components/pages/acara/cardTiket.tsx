@@ -2,22 +2,50 @@ import QuantityInput from "@/components/input/quantity";
 import React, { useState } from "react";
 
 interface CardTiketProps {
+    id: number;
     nama: string;
     deskripsi: string;
     catatan: string | undefined;
     tersedia: number;
+    harga: number;
+    ringkasan: any[];
+    setRingkasan: (value: any) => void;
+    setTotalHarga: (value: number) => void;
 }
 
 const CardTiket: React.FC<CardTiketProps> = ({
+    id,
     nama,
     deskripsi,
     catatan,
     tersedia,
+    harga,
+    ringkasan,
+    setRingkasan,
+    setTotalHarga,
 }) => {
     const [quantity, setQuantity] = useState(0);
 
     const handleQuantityChange = (newQuantity: number) => {
         setQuantity(newQuantity);
+        if (newQuantity > 0) {
+            const existingItemIndex = ringkasan.findIndex(
+                (tiket: any) => tiket.nama === nama
+            );
+            if (existingItemIndex !== -1) {
+                const updatedRingkasan = [...ringkasan];
+                updatedRingkasan[existingItemIndex].qty = newQuantity;
+                updatedRingkasan[existingItemIndex].harga = harga * newQuantity;
+                setRingkasan(updatedRingkasan);
+            } else {
+                setRingkasan([
+                    ...ringkasan,
+                    { id, nama, qty: newQuantity, harga: harga * newQuantity },
+                ]);
+            }
+        } else {
+            setRingkasan(ringkasan.filter((tiket: any) => tiket.nama !== nama));
+        }
     };
 
     return (
@@ -33,6 +61,7 @@ const CardTiket: React.FC<CardTiketProps> = ({
                         <QuantityInput
                             quantity={quantity}
                             onChange={handleQuantityChange}
+                            max={tersedia}
                         />
                         <div className="mt-2 text-center text-xs">
                             Tersedia:{tersedia}

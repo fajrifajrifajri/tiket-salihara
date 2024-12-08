@@ -7,16 +7,18 @@ export interface InputProps
         VariantProps<typeof inputVariants> {}
 
 const inputVariants = cva(
-    "flex h-9 w-full border my-2 px-3 py-1 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
+    "flex h-9 my-2 px-3 py-1 transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
     {
         variants: {
             variant: {
                 default: "border-input bg-transparent text-dark-1",
+                file: "border border-gray-600 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
                 "dasbor-gray": "border-gray-300 text-gray-800",
+                "dasbor-input": "border-t-0 border-l-0 border-r-0 border-b",
             },
         },
         defaultVariants: {
-            variant: "default",
+            variant: "dasbor-input",
         },
     }
 );

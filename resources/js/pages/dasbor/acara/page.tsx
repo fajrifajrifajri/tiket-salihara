@@ -1,56 +1,38 @@
 import { Button } from "@/components/ui/button";
 import Dasbor from "@/layouts/dasbor";
-
-import { Payment, columns } from "./columns";
+import { columns } from "./columns";
 import { DataTable } from "../../../components/dasbor/dataTable";
-import { useEffect, useState } from "react";
 import HeadingDasbor from "@/components/dasbor/headingDasbor";
-import { Link } from "@inertiajs/react";
-
-async function getData(): Promise<Payment[]> {
-    return [
-        {
-            id: "728ed52f",
-            amount: 100,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52f",
-            amount: 100,
-            status: "pending",
-            email: "m@example.com",
-        },
-        {
-            id: "728ed52f",
-            amount: 100,
-            status: "pending",
-            email: "m@example.com",
-        },
-    ];
-}
+import { Link, router, usePage } from "@inertiajs/react";
+import { Acara } from "@/types/acara";
+import { PlusIcon } from "@radix-ui/react-icons";
 
 export default function Component() {
-    const [data, setData] = useState<Payment[]>([]);
+    const { acara } = usePage().props as unknown as { acara: Acara[] };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await getData();
-            setData(result);
-        };
-        fetchData();
-    }, []);
+    const handleDelete = (id: number) => {
+        if (confirm("Are you sure you want to delete this event?")) {
+            router.delete(`/dasbor/acara/${id}`, {
+                onSuccess: (e) => {
+                    console.log(e);
+                },
+                onError: (e) => {
+                    console.error(e);
+                },
+            });
+        }
+    };
 
     return (
         <Dasbor>
             <main>
                 <HeadingDasbor title="ACARA BERBAYAR" />
-                <Link href="/dasbor/acara/baru">
-                    <Button variant="dasbor-gray" className="mb-12">
-                        + Acara Baru
+                <Link href="/dasbor/acara/buat">
+                    <Button variant="dasbor-gray" size="lg" className="mb-12">
+                        <PlusIcon className="w-4 h-4 mr-2" /> Acara Baru
                     </Button>
                 </Link>
-                <DataTable columns={columns} data={data} />
+                <DataTable columns={columns({ handleDelete })} data={acara} />
             </main>
         </Dasbor>
     );

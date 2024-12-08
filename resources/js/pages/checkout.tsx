@@ -17,7 +17,9 @@ export default function Landing() {
             </h1>
             <RingkasanPembelian laman="pembayaran" type="Tiket" />
 
-            <Donasi />
+            <div className="my-12 md:mx-20">
+                <Donasi />
+            </div>
 
             <DetailPemesanan type="Tiket" />
         </Depan>

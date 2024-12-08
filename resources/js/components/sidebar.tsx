@@ -2,7 +2,7 @@ import {
     LayoutGrid,
     ClipboardList,
     Receipt,
-    Ticket,
+    Tiket,
     Image,
     Calendar,
     ListOrdered,
@@ -53,7 +53,7 @@ export function AdminSidebar() {
                 </SidebarMenuItem>
                 <SidebarMenuItem>
                     <SidebarMenuButton>
-                        <Ticket className="h-4 w-4" />
+                        <Tiket className="h-4 w-4" />
                         <span>Kupon</span>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
